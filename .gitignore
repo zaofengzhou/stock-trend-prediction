@@ -160,4 +160,4 @@ cython_debug/
 .idea/
 .DS_Store
 Stock_Trend/__pycache__/
-Stock_Trend/model
+model
