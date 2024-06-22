@@ -1,3 +1,4 @@
+import torch
 import torch.nn as nn
 
 
@@ -19,5 +20,15 @@ class lstm(nn.Module):
         out, (hidden, cell) = self.rnn(x)  # x.shape : batch, seq_len, hidden_size , hn.shape and cn.shape : num_layes * direction_numbers, batch, hidden_size
         # a, b, c = hidden.shape
         # out = self.linear(hidden.reshape(a * b, c))
-        out = self.linear(hidden)
+        out = self.linear(hidden[-1, :, :])
         return out
+
+
+if __name__ == '__main__':
+    # Initialize the model, loss function, and optimizer
+    # model = lstm(input_size=5)
+    model = lstm(input_size=5, hidden_size=128, num_layers=1, output_size=2, dropout=0, batch_first=True)
+
+    X = torch.randn(128, 7, 5)
+    Y = model(X)
+    print(Y.shape)
